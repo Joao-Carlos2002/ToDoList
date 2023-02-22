@@ -96,7 +96,7 @@ document.getElementById('add-task').addEventListener('click', (ev) => {
                 // Edição da atividade
                 document.querySelector('.edit-task').addEventListener('click', (ev) => {
                     ev.preventDefault();
-                    if(taskEdit.value != ''){
+                    if (taskEdit.value != '') {
                         containerEdit.className = 'hide'
                         containerAddTask.className = ''
                         task.innerText = taskEdit.value
@@ -106,6 +106,7 @@ document.getElementById('add-task').addEventListener('click', (ev) => {
             })
         })
     }
+    return
 })
 
 document.querySelector('.search').addEventListener('click', (ev) => {
