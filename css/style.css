@@ -12,6 +12,15 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 10vh;
+    overflow: hidden;
+}
+
+img {
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
 }
 
 h1 {
