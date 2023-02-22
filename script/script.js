@@ -22,7 +22,7 @@ document.getElementById('add-task').addEventListener('click', (ev) => {
         // Adicionando classes e valores para os elementos novos
         taskContainer.className = 'task-container-' + indice;
         taskContainer.id = 'taskContainer';
-        taskContainer.setAttribute('status', 'not-complete');
+        taskContainer.setAttribute('status', 'incomplete');
 
         tasks.className = 'tasks-' + indice;
         tasks.id = 'Tasks';
@@ -73,6 +73,7 @@ document.getElementById('add-task').addEventListener('click', (ev) => {
                 checked.innerHTML = '<i id="checked" class="fa-solid fa-check"></i>'
                 checked.id = 'checked'
                 element.parentElement.appendChild(checked)
+                element.parentNode.parentNode.parentNode.setAttribute('status', 'complete')
             })
         }
         )
@@ -93,8 +94,10 @@ document.getElementById('add-task').addEventListener('click', (ev) => {
                 const taskEdit = document.getElementById('task-edit')
                 const task = element.parentNode.parentNode.firstChild.firstChild
                 taskEdit.value = task.innerText
+                const editTask = document.querySelector('.edit-task')
+                taskEdit.focus();
                 // Edição da atividade
-                document.querySelector('.edit-task').addEventListener('click', (ev) => {
+                editTask.addEventListener('click', (ev) => {
                     ev.preventDefault();
                     if (taskEdit.value != '') {
                         containerEdit.className = 'hide'
@@ -109,6 +112,53 @@ document.getElementById('add-task').addEventListener('click', (ev) => {
     return
 })
 
-document.querySelector('.search').addEventListener('click', (ev) => {
-    ev.preventDefault();
+const searchInput = document.getElementById('search-input')
+searchInput.addEventListener('input', (e) => {
+    const titles = document.querySelectorAll('#titleTask');
+    let searchText = searchInput.value.toLowerCase();
+    titles.forEach((title) => {
+        let text = title.innerText.toLowerCase();
+        if (text.includes(searchText)) {
+            title.parentNode.parentNode.parentNode.style.display = 'block';
+        } else {
+            title.parentNode.parentNode.parentNode.style.display = 'none';
+        }
+        if (searchInput.value == '') {
+            title.parentNode.parentNode.parentNode.style.display = 'block';
+        }
+    })
+})
+
+const filter = document.getElementById('select-filter');
+
+filter.addEventListener('change', (e) => {
+    const taskContainer = document.querySelectorAll('#taskContainer')
+    if (filter.value === 'All') {
+        taskContainer.forEach((task) => {
+            if (task.getAttribute('status') == 'complete') {
+                task.style.display = 'block';
+            } else {
+                task.style.display = 'block';
+            }
+        })
+    }
+    
+    if (filter.value === 'Complete') {
+        console.log('Complete')
+        taskContainer.forEach((task) => {
+                if (task.getAttribute('status') == 'complete') {
+                    task.style.display = 'block';
+                } else {
+                    task.style.display = 'none';
+                }
+            })
+    } if (filter.value === 'Incomplete') {
+            taskContainer.forEach((task) => {
+                if (task.getAttribute('status') == 'incomplete') {
+                    task.style.display = 'block';
+                } else {
+                    task.style.display = 'none';
+                }
+            })
+        }
 })
